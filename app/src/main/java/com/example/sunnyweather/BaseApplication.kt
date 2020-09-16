@@ -6,6 +6,7 @@ import android.content.Context
 class BaseApplication : Application() {
     companion object {
         lateinit var context: Context
+        const val TOKEN = "CbUCKGzVlHFyqILq"
     }
 
     override fun onCreate() {
