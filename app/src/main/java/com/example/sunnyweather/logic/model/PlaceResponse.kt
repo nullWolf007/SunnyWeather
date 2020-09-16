@@ -1,7 +1,7 @@
 package com.example.sunnyweather.logic.model
 
 //返回类
-class PlaceResponse(
+data class PlaceResponse(
     val status: String,
     val query: String,
     val places: List<Place>
