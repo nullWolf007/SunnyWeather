@@ -10,10 +10,29 @@ import kotlin.coroutines.suspendCoroutine
 
 object SunnyWeatherNetwork {
 
+    /**
+     * 地点相关接口
+     */
     private val placeService = ServiceCreator.create<PlaceService>()
-
     suspend fun searchPlaces(query: String) = placeService.searchPlaces(query).netRequest()
 
+
+    /**
+     * 天气相关接口
+     */
+    private val weatherService = ServiceCreator.create<WeatherService>()
+
+    //获取几天的天气
+    suspend fun getDailyWeather(lng: String, lat: String) =
+        weatherService.getDailyWeather(lng, lat).netRequest()
+
+    //获取实时的天气
+    suspend fun getRealtimeWeather(lng: String, lat: String) =
+        weatherService.getRealtimeWeather(lng, lat).netRequest()
+
+    /**
+     * 进行网络请求通用方法
+     */
     //suspend声明是挂起函数
     private suspend fun <T> Call<T>.netRequest(): T {
         //suspendCoroutine可以在挂起函数中使用
