@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sunnyweather.R
 import com.example.sunnyweather.logic.model.Place
 import com.example.sunnyweather.ui.weather.WeatherActivity
+import kotlinx.android.synthetic.main.activity_weather.*
 
 class PlaceAdapter(private val fragment: PlaceFragment, val datas: List<Place>) :
     RecyclerView.Adapter<PlaceAdapter.ViewHolder>() {
@@ -18,17 +19,27 @@ class PlaceAdapter(private val fragment: PlaceFragment, val datas: List<Place>) 
 
         //item项点击事件 跳转
         val holder = ViewHolder(view)
+        val activity = fragment.activity
         holder.itemView.setOnClickListener {
             val position = holder.adapterPosition
             val place = datas[position]
-            val intent = Intent(parent.context, WeatherActivity::class.java).apply {
-                putExtra("location_lng", place.location.lng)
-                putExtra("location_lat", place.location.lat)
-                putExtra("place_name", place.name)
+            if (activity is WeatherActivity) {//关闭侧滑栏
+                activity.drawerLayout.closeDrawers()
+                activity.viewModel.locationLng = place.location.lng
+                activity.viewModel.locationLat = place.location.lat
+                activity.viewModel.placeName = place.name
+                activity.refreshWeather()
+            } else {//跳转
+                val intent = Intent(parent.context, WeatherActivity::class.java).apply {
+                    putExtra("location_lng", place.location.lng)
+                    putExtra("location_lat", place.location.lat)
+                    putExtra("place_name", place.name)
+                }
+                fragment.startActivity(intent)
+                activity?.finish()
             }
             fragment.placeViewModel.savePlace(place)
-            fragment.startActivity(intent)
-            fragment.activity?.finish()
+
         }
 
         return holder

@@ -11,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sunnyweather.MainActivity
 
 import com.example.sunnyweather.R
 import com.example.sunnyweather.ui.weather.WeatherActivity
@@ -36,7 +37,7 @@ class PlaceFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         //从shared中获取数据
-        if (placeViewModel.isPlaceSaved()) {
+        if (activity is MainActivity && placeViewModel.isPlaceSaved()) {
             val place = placeViewModel.getSavedPlace()
             val intent = Intent(context, WeatherActivity::class.java).apply {
                 putExtra("location_lng", place.location.lng)
