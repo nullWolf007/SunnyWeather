@@ -3,12 +3,7 @@
 buildscript {
     ext.kotlin_version = '1.4.10'
     repositories {
-//        google()
-//        jcenter()
-
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-
+        maven { url "http://localhost:8081/artifactory/android_group" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.2'
@@ -21,10 +16,7 @@ buildscript {
 
 allprojects {
     repositories {
-//        google()
-//        jcenter()
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url "http://localhost:8081/artifactory/android_group" }
 
     }
 }
